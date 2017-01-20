@@ -66,10 +66,8 @@ describe('Blog-Posts API resource', function() {
       return chai.request(app)
         .get('/posts')
         .then(function(_res) {
-          //console.log(_res);
           _res.should.have.status(200);
           res = _res.body;
-           //console.log(res);
           // otherwise our db seeding didn't work
           res.should.have.length.of.at.least(1);
           return BlogPost.count();
@@ -98,13 +96,11 @@ describe('Blog-Posts API resource', function() {
               'id', 'author', 'title', 'content');
           });
             resBlogPosts = res.body[0];
-            console.log(resBlogPosts);
             return BlogPost.findById(resBlogPosts.id);
         })
         .then(function(post) {
-          console.log(post);
           let objectId = new ObjectID(resBlogPosts.id);
-          console.log(objectId.equals(post._id));
+          //console.log(objectId.equals(post._id));
           objectId.equals(post._id).should.equal(true);
           resBlogPosts.author.should.equal(post.author.firstName +" "+ post.author.lastName);
           resBlogPosts.title.should.equal(post.title);
